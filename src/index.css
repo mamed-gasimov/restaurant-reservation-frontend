@@ -49,6 +49,16 @@ main {
   margin: 0 auto;
 }
 
+input,
+textarea {
+  font: inherit;
+  padding: var(--space-2);
+  border-radius: var(--border-radius-small);
+  border: none;
+  width: 90%;
+  outline: none;
+}
+
 ul,
 ol {
   list-style: none;

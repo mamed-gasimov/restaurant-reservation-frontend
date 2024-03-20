@@ -11,11 +11,11 @@ const Header = () => {
         <Link to={ROUTES.home}>Restaurant Reservation</Link>
       </div>
       <Navbar />
-      <button className={headerCss.mobileMenuBtn}>
+      {/* <button className={headerCss.mobileMenuBtn}>
         <span></span>
         <span></span>
         <span></span>
-      </button>
+      </button> */}
     </header>
   );
 };

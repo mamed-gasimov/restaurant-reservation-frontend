@@ -27,6 +27,12 @@ main {
   padding: var(--space-2) var(--space-4);
 }
 
+.selected {
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--border-radius-small);
+  background-color: var(--color-primary-500-bg);
+}
+
 @media (min-width: 48rem) {
   main {
     margin-top: 0;

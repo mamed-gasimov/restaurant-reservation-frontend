@@ -1,0 +1,17 @@
+.products-grid {
+  margin: var(--space-8) auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: var(--space-4);
+}
+
+.search-container {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  margin-top: var(--space-8);
+}
+
+.search-container div {
+  width: 40%;
+}
