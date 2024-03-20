@@ -1,4 +1,4 @@
-import { RestaurantItemCard, TextInput } from "@components/index";
+import { RestaurantItemCard } from "@components/index";
 import restaurantsCss from "./restaurants.module.css";
 
 const Restaurants = () => {
@@ -6,7 +6,7 @@ const Restaurants = () => {
     <>
       <div className={restaurantsCss.searchContainer}>
         <div>
-          <TextInput placeholder="Enter restaurant name" />
+          <input placeholder="Enter restaurant name" />
         </div>
         <button className="btn">Search</button>
       </div>

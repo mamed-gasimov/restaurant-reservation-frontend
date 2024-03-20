@@ -23,7 +23,8 @@
     "paths": {
       "@components/*": ["src/components/*"],
       "@pages/*": ["src/pages/*"],
-      "@router/*": ["src/router/*"]
+      "@router/*": ["src/router/*"],
+      "@validationSchemas/*": ["src/validationSchemas/*"]
     }
   },
   "include": ["src"],
