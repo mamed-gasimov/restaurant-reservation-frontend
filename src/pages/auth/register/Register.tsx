@@ -1,15 +1,24 @@
-import { useForm } from "react-hook-form";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { UseFormRegister, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { toast } from "react-toastify";
 
 import { TextInput } from "@components/index";
 import { registerSchema } from "@validationSchemas/register";
+import { sendRequest } from "@services/sendRequest";
+import { ROUTES } from "@router/routeNames";
+import { Forms, RegisterForm } from "src/types/forms";
 import registerCss from "./register.module.css";
 
 const Register = () => {
+  const [errMsg, setErrMsg] = useState("");
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm({
     defaultValues: {
       firstName: "",
@@ -20,8 +29,18 @@ const Register = () => {
     resolver: yupResolver(registerSchema),
   });
 
-  const handleRegister = (values: unknown) => {
-    console.log(values);
+  const handleRegister = async (values: RegisterForm) => {
+    if (isValid) {
+      const response = await sendRequest("/auth/register", values);
+
+      if (response?.status === "error") {
+        setErrMsg(response.message);
+      } else if (response?.status === "success") {
+        setErrMsg("");
+        toast.success(response.message || "Successfully registered!");
+        navigate(ROUTES.login);
+      }
+    }
   };
 
   return (
@@ -33,7 +52,7 @@ const Register = () => {
         <TextInput
           label="First Name"
           inputId="firstName"
-          register={register}
+          register={register as UseFormRegister<Forms>}
           errorMsg={errors.firstName?.message}
         />
       </p>
@@ -41,7 +60,7 @@ const Register = () => {
         <TextInput
           label="Last Name"
           inputId="lastName"
-          register={register}
+          register={register as UseFormRegister<Forms>}
           errorMsg={errors.lastName?.message}
         />
       </p>
@@ -49,7 +68,7 @@ const Register = () => {
         <TextInput
           label="Email"
           inputId="email"
-          register={register}
+          register={register as UseFormRegister<Forms>}
           errorMsg={errors.email?.message}
         />
       </p>
@@ -57,11 +76,12 @@ const Register = () => {
         <TextInput
           label="Password"
           inputId="password"
-          register={register}
+          register={register as UseFormRegister<Forms>}
           type="password"
           errorMsg={errors.password?.message}
         />
       </p>
+      {!!errMsg && <p className="errorSpan">{errMsg}</p>}
       <button className="btn" type="submit">
         Create Account
       </button>

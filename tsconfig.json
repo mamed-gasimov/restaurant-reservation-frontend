@@ -24,7 +24,8 @@
       "@components/*": ["src/components/*"],
       "@pages/*": ["src/pages/*"],
       "@router/*": ["src/router/*"],
-      "@validationSchemas/*": ["src/validationSchemas/*"]
+      "@validationSchemas/*": ["src/validationSchemas/*"],
+      "@services/*": ["src/services/*"]
     }
   },
   "include": ["src"],

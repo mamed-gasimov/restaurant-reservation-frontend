@@ -1,13 +1,13 @@
 import { UseFormRegister } from "react-hook-form";
 
-import { RegisterForm } from "src/types/registerForm";
+import { Forms, RegisterForm } from "src/types/forms";
 
 interface IProps {
   label: string;
   inputId: keyof RegisterForm;
   placeholder?: string;
   errorMsg?: string;
-  register: UseFormRegister<RegisterForm>;
+  register: UseFormRegister<Forms>;
   type?: string;
 }
 
@@ -28,7 +28,7 @@ const TextInput = ({
         type={type || "text"}
         {...register(inputId)}
       />
-      {!!errorMsg && <span style={{ color: "#d00505" }}>{errorMsg}</span>}
+      {!!errorMsg && <span className="errorSpan">{errorMsg}</span>}
     </>
   );
 };
