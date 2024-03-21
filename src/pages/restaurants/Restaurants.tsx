@@ -1,17 +1,24 @@
-import { useEffect, useState } from "react";
+import { FormEventHandler, SyntheticEvent, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 import { RestaurantItemCard } from "@components/index";
 import { sendGetRestaurantsRequest } from "@services/sendRequest";
-import restaurantsCss from "./restaurants.module.css";
 import { GetRestaurantsApiResponse, Restaurant } from "src/types/apiResponse";
-import { toast } from "react-toastify";
+import restaurantsCss from "./restaurants.module.css";
 
 const Restaurants = () => {
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
+  const [searchInput, setSearchInput] = useState("");
 
-  const getRestaurants = async () => {
+  const getRestaurants = async (
+    e?: SyntheticEvent<HTMLFormElement, SubmitEvent>
+  ) => {
+    if (e) {
+      e.preventDefault();
+    }
+
     const response = (await sendGetRestaurantsRequest(
-      "/restaurants"
+      `/restaurants${searchInput ? "?name=" + searchInput : ""}`
     )) as GetRestaurantsApiResponse;
 
     if (response?.status === "error" || !response) {
@@ -27,12 +34,20 @@ const Restaurants = () => {
 
   return (
     <>
-      <div className={restaurantsCss.searchContainer}>
+      <form
+        className={restaurantsCss.searchContainer}
+        onSubmit={getRestaurants as FormEventHandler<HTMLFormElement>}
+      >
         <div>
-          <input placeholder="Enter restaurant name" />
+          <input
+            placeholder="Enter restaurant name"
+            onChange={(e) => setSearchInput(e.target.value)}
+          />
         </div>
-        <button className="btn">Search</button>
-      </div>
+        <button className="btn" type="submit">
+          Search
+        </button>
+      </form>
       <ul className={restaurantsCss.productsGrid}>
         {restaurants?.map((item) => (
           <RestaurantItemCard
