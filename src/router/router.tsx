@@ -5,6 +5,7 @@ import {
   NotFound,
   RegisterPage,
   RestaurantsPage,
+  SingleRestaurant,
 } from "@pages/index";
 import { RouteGuard, Wrapper } from "@components/index";
 import { ROUTES } from "@router/routeNames";
@@ -15,6 +16,14 @@ const router = createBrowserRouter([
     element: (
       <Wrapper>
         <RestaurantsPage />
+      </Wrapper>
+    ),
+  },
+  {
+    path: ROUTES.singleRestaurant,
+    element: (
+      <Wrapper>
+        <SingleRestaurant />
       </Wrapper>
     ),
   },

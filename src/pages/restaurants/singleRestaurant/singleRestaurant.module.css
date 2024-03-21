@@ -1,0 +1,14 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.container .restaurant-image {
+  height: 450px;
+  object-fit: cover;
+}
+
+.container .description {
+  line-height: 30px;
+  font-size: 1.1rem;
+}

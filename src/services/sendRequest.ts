@@ -87,3 +87,23 @@ export const sendGetRestaurantsRequest = async (path: string) => {
 
   return response;
 };
+
+export const sendGetSingleRestaurant = async (path: string) => {
+  let response;
+  try {
+    const res = (await axiosInstance.get(path)).data as {
+      restaurant: Restaurant;
+    };
+    response = { data: res, status: "success" };
+  } catch (error) {
+    const err = error as AxiosResponseError;
+    if (err.response?.data) {
+      response = {
+        data: err.response.data,
+        status: "error",
+      } as ApiResponse;
+    }
+  }
+
+  return response;
+};

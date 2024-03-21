@@ -1,11 +1,15 @@
+import { Link } from "react-router-dom";
+
 import restaurantItemCardCss from "./restaurantItemCard.module.css";
+import { ROUTES } from "@router/routeNames";
 
 interface Props {
+  id: string;
   name: string;
   image: string;
 }
 
-const RestaurantItemCard = ({ name, image }: Props) => {
+const RestaurantItemCard = ({ id, name, image }: Props) => {
   return (
     <li>
       <article className={restaurantItemCardCss.restaurantItem}>
@@ -13,12 +17,9 @@ const RestaurantItemCard = ({ name, image }: Props) => {
         <div className={restaurantItemCardCss.restaurantItemContent}>
           <h2>{name}</h2>
           <div className={restaurantItemCardCss.restaurantItemActions}>
-            <a
-              href="/restaurants/65f96f71f9d7eba98736ddc3"
-              className="btn btn-alt"
-            >
+            <Link to={`${ROUTES.restaurants}/${id}`} className="btn btn-alt">
               View Details
-            </a>
+            </Link>
           </div>
         </div>
       </article>

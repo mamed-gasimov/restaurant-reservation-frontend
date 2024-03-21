@@ -17,6 +17,11 @@ export type GetRestaurantsApiResponse = {
   status?: "error" | "success";
 };
 
+export type GetRestaurantApiResponse = {
+  data: { restaurant: Restaurant };
+  status?: "error" | "success";
+};
+
 export type RegisterApiResponse = {
   data: { message: string };
   status?: "error" | "success";
