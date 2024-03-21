@@ -3,6 +3,20 @@ export type ApiResponse =
   | LoginApiResponse
   | AccessTokenApiResponse;
 
+export type Restaurant = {
+  _id: string;
+  name: string;
+  description: string;
+  image: string;
+  startingHour: string;
+  closingHour: string;
+};
+
+export type GetRestaurantsApiResponse = {
+  data: { restaurants: Restaurant[] };
+  status?: "error" | "success";
+};
+
 export type RegisterApiResponse = {
   data: { message: string };
   status?: "error" | "success";

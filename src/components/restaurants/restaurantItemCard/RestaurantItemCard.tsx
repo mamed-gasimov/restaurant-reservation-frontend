@@ -1,12 +1,17 @@
 import restaurantItemCardCss from "./restaurantItemCard.module.css";
 
-const RestaurantItemCard = () => {
+interface Props {
+  name: string;
+  image: string;
+}
+
+const RestaurantItemCard = ({ name, image }: Props) => {
   return (
     <li>
       <article className={restaurantItemCardCss.restaurantItem}>
-        <img src="/src/assets/1.jpeg" alt="new restaurant" />
+        <img src={image} alt={name} />
         <div className={restaurantItemCardCss.restaurantItemContent}>
-          <h2>new restaurant</h2>
+          <h2>{name}</h2>
           <div className={restaurantItemCardCss.restaurantItemActions}>
             <a
               href="/restaurants/65f96f71f9d7eba98736ddc3"

@@ -1,5 +1,9 @@
 import { AxiosResponseError } from "src/types/errorTypes";
-import { AccessTokenApiResponse, ApiResponse } from "src/types/apiResponse";
+import {
+  AccessTokenApiResponse,
+  ApiResponse,
+  Restaurant,
+} from "src/types/apiResponse";
 import { AccessTokenByUserId, LoginForm, RegisterForm } from "src/types/forms";
 import { axiosInstance } from "./axiosInstance";
 
@@ -64,19 +68,12 @@ export const getAccessTokenByUserId = async (
   return response;
 };
 
-export const sendGetRestaurantsRequest = async (
-  path: string,
-  token: string
-) => {
+export const sendGetRestaurantsRequest = async (path: string) => {
   let response;
   try {
-    const res = (
-      await axiosInstance.get(path, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-    ).data as ApiResponse;
+    const res = (await axiosInstance.get(path)).data as {
+      restaurants: Restaurant[];
+    };
     response = { data: res, status: "success" };
   } catch (error) {
     const err = error as AxiosResponseError;
