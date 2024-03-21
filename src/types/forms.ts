@@ -10,4 +10,8 @@ export interface LoginForm {
   password: string;
 }
 
+export interface AccessTokenByUserId {
+  userId: string;
+}
+
 export type Forms = RegisterForm | LoginForm;

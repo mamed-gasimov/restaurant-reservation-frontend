@@ -8,7 +8,7 @@ const Header = () => {
   return (
     <header className={headerCss.mainHeader}>
       <div className={headerCss.logo}>
-        <Link to={ROUTES.home}>Restaurant Reservation</Link>
+        <Link to={ROUTES.home}>BookNow</Link>
       </div>
       <Navbar />
       {/* <button className={headerCss.mobileMenuBtn}>

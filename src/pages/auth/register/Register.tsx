@@ -6,10 +6,11 @@ import { toast } from "react-toastify";
 
 import { TextInput } from "@components/index";
 import { registerSchema } from "@validationSchemas/register";
-import { sendRequest } from "@services/sendRequest";
+import { sendRegisterRequest } from "@services/sendRequest";
 import { ROUTES } from "@router/routeNames";
 import { Forms, RegisterForm } from "src/types/forms";
 import registerCss from "./register.module.css";
+import { RegisterApiResponse } from "src/types/apiResponse";
 
 const Register = () => {
   const [errMsg, setErrMsg] = useState("");
@@ -30,16 +31,19 @@ const Register = () => {
   });
 
   const handleRegister = async (values: RegisterForm) => {
-    if (isValid) {
-      const response = await sendRequest("/auth/register", values);
+    if (!isValid) return;
 
-      if (response?.status === "error") {
-        setErrMsg(response.message);
-      } else if (response?.status === "success") {
-        setErrMsg("");
-        toast.success(response.message || "Successfully registered!");
-        navigate(ROUTES.login);
-      }
+    const response = (await sendRegisterRequest(
+      "/auth/register",
+      values
+    )) as RegisterApiResponse;
+
+    if (response?.status === "error") {
+      setErrMsg(response.data.message);
+    } else if (response?.status === "success") {
+      setErrMsg("");
+      toast.success(response.data.message || "Successfully registered!");
+      navigate(ROUTES.login);
     }
   };
 

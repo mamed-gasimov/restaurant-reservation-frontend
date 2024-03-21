@@ -12,6 +12,7 @@ export default defineConfig({
       "@router": path.resolve(__dirname, "./src/router"),
       "@validationSchemas": path.resolve(__dirname, "./src/validationSchemas"),
       "@services": path.resolve(__dirname, "./src/services"),
+      "@context": path.resolve(__dirname, "./src/context"),
     },
   },
   plugins: [react()],

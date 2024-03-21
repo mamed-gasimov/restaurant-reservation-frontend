@@ -6,7 +6,7 @@ import {
   RegisterPage,
   RestaurantsPage,
 } from "@pages/index";
-import { Wrapper } from "@components/index";
+import { RouteGuard, Wrapper } from "@components/index";
 import { ROUTES } from "@router/routeNames";
 
 const router = createBrowserRouter([
@@ -22,7 +22,9 @@ const router = createBrowserRouter([
     path: ROUTES.register,
     element: (
       <Wrapper>
-        <RegisterPage />
+        <RouteGuard>
+          <RegisterPage />
+        </RouteGuard>
       </Wrapper>
     ),
   },
@@ -30,7 +32,9 @@ const router = createBrowserRouter([
     path: ROUTES.login,
     element: (
       <Wrapper>
-        <LoginPage />
+        <RouteGuard>
+          <LoginPage />
+        </RouteGuard>
       </Wrapper>
     ),
   },
