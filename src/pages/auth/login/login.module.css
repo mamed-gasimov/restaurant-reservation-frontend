@@ -5,13 +5,3 @@
   background-color: var(--color-gray-600);
   border-radius: var(--border-radius-medium);
 }
-
-.input-container {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.input-container input {
-  width: 100%;
-}

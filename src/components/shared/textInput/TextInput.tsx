@@ -1,10 +1,11 @@
 import { UseFormRegister } from "react-hook-form";
 
-import { Forms, RegisterForm } from "src/types/forms";
+import { Forms } from "src/types/forms";
+import textInputCss from "./textInput.module.css";
 
 interface IProps {
   label: string;
-  inputId: keyof RegisterForm;
+  inputId: string;
   placeholder?: string;
   errorMsg?: string;
   register: UseFormRegister<Forms>;
@@ -20,16 +21,26 @@ const TextInput = ({
   type,
 }: IProps) => {
   return (
-    <>
+    <p className={textInputCss.inputContainer}>
       <label htmlFor={inputId}>{label}</label>
-      <input
-        id={inputId}
-        placeholder={placeholder}
-        type={type || "text"}
-        {...register(inputId)}
-      />
+      {type === "date" ? (
+        <input
+          id={inputId}
+          placeholder={placeholder}
+          type={type || "text"}
+          min={new Date().toISOString().split("T")[0]}
+          {...register(inputId as never)}
+        />
+      ) : (
+        <input
+          id={inputId}
+          placeholder={placeholder}
+          type={type || "text"}
+          {...register(inputId as never)}
+        />
+      )}
       {!!errorMsg && <span className="errorSpan">{errorMsg}</span>}
-    </>
+    </p>
   );
 };
 

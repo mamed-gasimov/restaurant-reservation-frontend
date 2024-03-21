@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import { UseFormRegister, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
 
@@ -9,7 +9,7 @@ import { sendLoginRequest } from "@services/sendRequest";
 import { loginSchema } from "@validationSchemas/login";
 import { AuthContext } from "@context/authContext";
 import { ROUTES } from "@router/routeNames";
-import { LoginForm } from "src/types/forms";
+import { Forms, LoginForm } from "src/types/forms";
 import loginCss from "./login.module.css";
 import { LoginApiResponse } from "src/types/apiResponse";
 
@@ -53,23 +53,19 @@ const Login = () => {
 
   return (
     <form className={loginCss.loginForm} onSubmit={handleSubmit(handleLogin)}>
-      <p className={loginCss.inputContainer}>
-        <TextInput
-          label="Email"
-          inputId="email"
-          register={register}
-          errorMsg={errors.email?.message}
-        />
-      </p>
-      <p className={loginCss.inputContainer}>
-        <TextInput
-          label="Password"
-          inputId="password"
-          register={register}
-          type="password"
-          errorMsg={errors.password?.message}
-        />
-      </p>
+      <TextInput
+        label="Email"
+        inputId="email"
+        register={register as UseFormRegister<Forms>}
+        errorMsg={errors.email?.message}
+      />
+      <TextInput
+        label="Password"
+        inputId="password"
+        register={register as UseFormRegister<Forms>}
+        type="password"
+        errorMsg={errors.password?.message}
+      />
       {!!errMsg && <p className="errorSpan">{errMsg}</p>}
       <button className="btn" type="submit">
         Log In

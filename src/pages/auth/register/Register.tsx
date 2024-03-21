@@ -52,39 +52,31 @@ const Register = () => {
       className={registerCss.registerForm}
       onSubmit={handleSubmit(handleRegister)}
     >
-      <p className={registerCss.inputContainer}>
-        <TextInput
-          label="First Name"
-          inputId="firstName"
-          register={register as UseFormRegister<Forms>}
-          errorMsg={errors.firstName?.message}
-        />
-      </p>
-      <p className={registerCss.inputContainer}>
-        <TextInput
-          label="Last Name"
-          inputId="lastName"
-          register={register as UseFormRegister<Forms>}
-          errorMsg={errors.lastName?.message}
-        />
-      </p>
-      <p className={registerCss.inputContainer}>
-        <TextInput
-          label="Email"
-          inputId="email"
-          register={register as UseFormRegister<Forms>}
-          errorMsg={errors.email?.message}
-        />
-      </p>
-      <p className={registerCss.inputContainer}>
-        <TextInput
-          label="Password"
-          inputId="password"
-          register={register as UseFormRegister<Forms>}
-          type="password"
-          errorMsg={errors.password?.message}
-        />
-      </p>
+      <TextInput
+        label="First Name"
+        inputId="firstName"
+        register={register as UseFormRegister<Forms>}
+        errorMsg={errors.firstName?.message}
+      />
+      <TextInput
+        label="Last Name"
+        inputId="lastName"
+        register={register as UseFormRegister<Forms>}
+        errorMsg={errors.lastName?.message}
+      />
+      <TextInput
+        label="Email"
+        inputId="email"
+        register={register as UseFormRegister<Forms>}
+        errorMsg={errors.email?.message}
+      />
+      <TextInput
+        label="Password"
+        inputId="password"
+        register={register as UseFormRegister<Forms>}
+        type="password"
+        errorMsg={errors.password?.message}
+      />
       {!!errMsg && <p className="errorSpan">{errMsg}</p>}
       <button className="btn" type="submit">
         Create Account

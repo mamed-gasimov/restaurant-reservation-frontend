@@ -12,3 +12,14 @@
   line-height: 30px;
   font-size: 1.1rem;
 }
+
+.reservation-form-section {
+  border: 2px solid var(--color-border);
+  background-color: var(--color-secondary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--space-6);
+  border-radius: var(--border-radius-medium);
+  margin-bottom: var(--space-6);
+}

@@ -10,8 +10,15 @@ export interface LoginForm {
   password: string;
 }
 
+export interface ReservationForm {
+  date: string;
+  time: string;
+  numberOfPeople: number;
+  additionalNotes?: string;
+}
+
 export interface AccessTokenByUserId {
   userId: string;
 }
 
-export type Forms = RegisterForm | LoginForm;
+export type Forms = RegisterForm | LoginForm | ReservationForm;

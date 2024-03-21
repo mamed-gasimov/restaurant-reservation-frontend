@@ -1,0 +1,9 @@
+.reservation-form {
+  width: 350px;
+}
+
+.reservation-form textarea,
+.reservation-form select {
+  width: 100%;
+  margin-top: 10px;
+}

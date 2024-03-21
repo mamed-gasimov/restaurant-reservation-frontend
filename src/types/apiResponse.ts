@@ -12,6 +12,15 @@ export type Restaurant = {
   closingHour: string;
 };
 
+export interface Reservation {
+  _id: string;
+  date: string;
+  time: string;
+  numberOfPeople: number;
+  additionalNotes?: string;
+  status: "pending" | "approved" | "rejected";
+}
+
 export type GetRestaurantsApiResponse = {
   data: { restaurants: Restaurant[] };
   status?: "error" | "success";
@@ -32,6 +41,14 @@ export type LoginApiResponse = {
     message: string;
     token: string;
     userId: string;
+  };
+  status?: "error" | "success";
+};
+
+export type CreateReservationApiResponse = {
+  data: {
+    message: string;
+    reservation: Reservation;
   };
   status?: "error" | "success";
 };
