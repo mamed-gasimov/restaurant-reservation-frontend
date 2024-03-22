@@ -1,11 +1,42 @@
+import { useContext } from "react";
+
+import { sendUpdateReservation } from "@services/sendRequest";
+import { AuthContext } from "@context/authContext";
 import { ReservationResponse } from "src/types/apiResponse";
 import reservationItemCss from "./reservationItem.module.css";
+import { toast } from "react-toastify";
 
 interface Props {
   reservation: ReservationResponse;
+  setUpdatePage: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const ReservationItem = ({ reservation }: Props) => {
+const ReservationItem = ({ reservation, setUpdatePage }: Props) => {
+  const { authToken } = useContext(AuthContext);
+
+  const confirmAction = (approveClicked: "approved" | "rejected") => {
+    const confirmed = confirm("Are you sure?");
+
+    if (confirmed) {
+      const sendRequest = async () => {
+        const response = await sendUpdateReservation(
+          "/reservations",
+          { reservationId: reservation._id, status: approveClicked },
+          authToken
+        );
+
+        if (response?.status === "error" || !response) {
+          toast.error("Something went wrong!");
+        } else if (response?.status === "success") {
+          toast.success(response.data.message);
+          setUpdatePage((prev) => !prev);
+        }
+      };
+
+      sendRequest();
+    }
+  };
+
   return (
     <div className={reservationItemCss.reservationItem}>
       <p>
@@ -32,8 +63,15 @@ const ReservationItem = ({ reservation }: Props) => {
         </p>
       )}
       <div className={reservationItemCss.btnContainer}>
-        <button className="btn">Approve</button>
-        <button className="btn btn-alt">Reject</button>
+        <button className="btn" onClick={() => confirmAction("approved")}>
+          Approve
+        </button>
+        <button
+          className="btn btn-alt"
+          onClick={() => confirmAction("rejected")}
+        >
+          Reject
+        </button>
       </div>
     </div>
   );

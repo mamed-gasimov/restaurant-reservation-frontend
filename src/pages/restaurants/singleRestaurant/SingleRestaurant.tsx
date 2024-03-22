@@ -22,6 +22,7 @@ const SingleRestaurant = () => {
   const [listOfReservations, setListOfReservations] = useState<
     ReservationResponse[]
   >([]);
+  const [updatePage, setUpdatePage] = useState(false);
   const { isAuth, restaurantOwner, authToken } = useContext(AuthContext);
 
   useEffect(() => {
@@ -57,7 +58,7 @@ const SingleRestaurant = () => {
         getReservations(id);
       }
     }
-  }, [id, restaurantOwner?.restaurantId]);
+  }, [id, restaurantOwner?.restaurantId, updatePage]);
 
   return (
     <div className={restaurantCss.container}>
@@ -75,7 +76,11 @@ const SingleRestaurant = () => {
           restaurantOwner?.restaurantId === id &&
           listOfReservations?.length > 0 &&
           listOfReservations.map((item) => (
-            <ReservationItem key={item?._id} reservation={item} />
+            <ReservationItem
+              key={item?._id}
+              reservation={item}
+              setUpdatePage={setUpdatePage}
+            />
           ))}
         {isAuth &&
           restaurantOwner?.restaurantId === id &&

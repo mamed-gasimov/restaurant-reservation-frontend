@@ -191,3 +191,29 @@ export const sendGetReservations = async (path: string, authToken: string) => {
 
   return response;
 };
+
+export const sendUpdateReservation = async (
+  path: string,
+  values: { reservationId: string; status: "approved" | "rejected" },
+  authToken: string
+) => {
+  let response;
+  try {
+    const res = (
+      await axiosInstance.put(path, values, {
+        headers: { Authorization: `Bearer ${authToken}` },
+      })
+    ).data as { message: string };
+    response = { data: res, status: "success" };
+  } catch (error) {
+    const err = error as AxiosResponseError;
+    if (err.response?.data) {
+      response = {
+        data: err.response.data,
+        status: "error",
+      } as ApiResponse;
+    }
+  }
+
+  return response;
+};
