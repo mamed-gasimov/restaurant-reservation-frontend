@@ -1,4 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { createContext, useMemo, useState } from "react";
+
+type restaurantInfo = {
+  restaurantId: string | null;
+  restaurantName: string | null;
+};
 
 interface IDefaultState {
   authToken: string;
@@ -7,18 +13,22 @@ interface IDefaultState {
   setUserId: (userId: string) => void;
   isAuth: boolean;
   setIsAuth: (auth: boolean) => void;
+  restaurantOwner: restaurantInfo;
+  setRestaurantOwnerInfo: (info: restaurantInfo) => void;
 }
 
 const authDefaultState: IDefaultState = {
   authToken: "",
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   setAuthToken: (_token: string) => {},
   userId: "",
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   setUserId: (_userId) => {},
   isAuth: false,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   setIsAuth: (_bool) => {},
+  restaurantOwner: {
+    restaurantId: null,
+    restaurantName: null,
+  },
+  setRestaurantOwnerInfo: (_info: restaurantInfo) => {},
 };
 
 export const AuthContext = createContext(authDefaultState);
@@ -31,9 +41,22 @@ export const AuthContextProvider = ({ children }: Props) => {
   const [authToken, setAuthToken] = useState("");
   const [userId, setUserId] = useState("");
   const [isAuth, setIsAuth] = useState(false);
+  const [restaurantOwner, setRestaurantOwnerInfo] = useState<restaurantInfo>({
+    restaurantId: null,
+    restaurantName: null,
+  });
   const ctx = useMemo(
-    () => ({ authToken, setAuthToken, userId, setUserId, isAuth, setIsAuth }),
-    [authToken, userId, isAuth]
+    () => ({
+      authToken,
+      setAuthToken,
+      userId,
+      setUserId,
+      isAuth,
+      setIsAuth,
+      restaurantOwner,
+      setRestaurantOwnerInfo,
+    }),
+    [authToken, userId, isAuth, restaurantOwner.restaurantId]
   );
   return <AuthContext.Provider value={ctx}>{children}</AuthContext.Provider>;
 };

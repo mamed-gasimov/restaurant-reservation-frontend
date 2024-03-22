@@ -15,7 +15,8 @@ import { LoginApiResponse } from "src/types/apiResponse";
 
 const Login = () => {
   const [errMsg, setErrMsg] = useState("");
-  const { setAuthToken, setIsAuth } = useContext(AuthContext);
+  const { setAuthToken, setIsAuth, setRestaurantOwnerInfo } =
+    useContext(AuthContext);
   const navigate = useNavigate();
 
   const {
@@ -42,10 +43,14 @@ const Login = () => {
       setErrMsg(response.data.message);
     } else if (response?.status === "success") {
       setErrMsg("");
-      const userObj = JSON.stringify({ userId: response.data.userId });
+      const userObj = JSON.stringify({ userId: response.data.user._id });
       localStorage.setItem("restaurant-reservation-app", userObj);
       setAuthToken(response.data.token);
       setIsAuth(true);
+      setRestaurantOwnerInfo({
+        restaurantId: response.data.user.restaurant?.id || null,
+        restaurantName: response.data.user.restaurant?.name || null,
+      });
       toast.success(response.data.message || "Successfully logged in!");
       navigate(ROUTES.home);
     }

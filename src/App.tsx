@@ -1,14 +1,20 @@
 import { useContext, useEffect } from "react";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import { getAccessTokenByUserId } from "@services/sendRequest";
+import {
+  getAccessTokenByUserId,
+  sendGetCurrentUser,
+} from "@services/sendRequest";
 import { AuthContext } from "@context/authContext";
 import { Router } from "./router";
-import { AccessTokenApiResponse } from "./types/apiResponse";
+import {
+  AccessTokenApiResponse,
+  GetCurrentUserApiResponse,
+} from "./types/apiResponse";
 
 function App() {
-  const { setUserId, userId, authToken, setAuthToken } =
+  const { setUserId, userId, authToken, setAuthToken, setRestaurantOwnerInfo } =
     useContext(AuthContext);
   const item = localStorage.getItem("restaurant-reservation-app");
 
@@ -38,6 +44,27 @@ function App() {
       sendRequest();
     }
   }, [userId, authToken]);
+
+  useEffect(() => {
+    if (authToken) {
+      const sendRequest = async () => {
+        const response = (await sendGetCurrentUser(
+          "/auth/current",
+          authToken
+        )) as GetCurrentUserApiResponse;
+        if (response?.status === "error" || !response) {
+          toast.error("Something went wrong!");
+        } else if (response?.status === "success") {
+          setRestaurantOwnerInfo({
+            restaurantId: response.data.user?.restaurant?.id || null,
+            restaurantName: response.data.user?.restaurant?.name || null,
+          });
+        }
+      };
+
+      sendRequest();
+    }
+  }, [authToken]);
 
   return (
     <>

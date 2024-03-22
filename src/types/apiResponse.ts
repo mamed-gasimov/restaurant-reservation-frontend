@@ -36,11 +36,29 @@ export type RegisterApiResponse = {
   status?: "error" | "success";
 };
 
+export type User = {
+  _id: string;
+  restaurant: {
+    id?: string;
+    name?: string;
+  };
+  firstName: string;
+  lastName: string;
+  email: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type GetCurrentUserApiResponse = {
+  data: { user: User };
+  status?: "error" | "success";
+};
+
 export type LoginApiResponse = {
   data: {
     message: string;
     token: string;
-    userId: string;
+    user: User;
   };
   status?: "error" | "success";
 };

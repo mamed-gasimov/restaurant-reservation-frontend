@@ -11,7 +11,7 @@ import { ReservationForm } from "@components/index";
 const SingleRestaurant = () => {
   const { id } = useParams();
   const [restaurant, setRestaurant] = useState<Restaurant>();
-  const { isAuth } = useContext(AuthContext);
+  const { isAuth, restaurantOwner } = useContext(AuthContext);
 
   useEffect(() => {
     if (id) {
@@ -40,7 +40,10 @@ const SingleRestaurant = () => {
         {!isAuth && (
           <h2>Please Login to Your account to make a reservation.</h2>
         )}
-        {isAuth && <ReservationForm restaurantId={id} />}
+        {isAuth && restaurantOwner?.restaurantId !== id && (
+          <ReservationForm restaurantId={id} />
+        )}
+        {isAuth && restaurantOwner?.restaurantId === id && <p>HELLO!</p>}
       </section>
     </div>
   );

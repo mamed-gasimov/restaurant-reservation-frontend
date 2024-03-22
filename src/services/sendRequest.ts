@@ -4,6 +4,7 @@ import {
   ApiResponse,
   Reservation,
   Restaurant,
+  User,
 } from "src/types/apiResponse";
 import {
   AccessTokenByUserId,
@@ -128,6 +129,31 @@ export const sendCreateReservationRequest = async (
     ).data as {
       message: string;
       reservation: Reservation;
+    };
+    response = { data: res, status: "success" };
+  } catch (error) {
+    const err = error as AxiosResponseError;
+    if (err.response?.data) {
+      response = {
+        data: err.response.data,
+        status: "error",
+      } as ApiResponse;
+    }
+  }
+
+  return response;
+};
+
+export const sendGetCurrentUser = async (path: string, authToken: string) => {
+  let response;
+  try {
+    const res = (
+      await axiosInstance.get(path, {
+        headers: { Authorization: `Bearer ${authToken}` },
+      })
+    ).data as {
+      message: string;
+      user: User;
     };
     response = { data: res, status: "success" };
   } catch (error) {
