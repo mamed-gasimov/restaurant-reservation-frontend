@@ -78,3 +78,16 @@ export type AccessTokenApiResponse = {
   };
   status?: "error" | "success";
 };
+
+export interface ReservationResponse extends Reservation {
+  userFullName: string;
+  userEmail: string;
+}
+
+export interface GetReservationsApiResponse {
+  data: {
+    message: string;
+    reservations: ReservationResponse[];
+  };
+  status?: "error" | "success";
+}

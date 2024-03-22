@@ -22,4 +22,5 @@
   padding: var(--space-6);
   border-radius: var(--border-radius-medium);
   margin-bottom: var(--space-6);
+  flex-wrap: wrap;
 }

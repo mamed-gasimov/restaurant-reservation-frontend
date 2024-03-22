@@ -6,3 +6,5 @@ export { default as RouteGuard } from "./shared/routeGuard/RouteGuard";
 
 export { default as RestaurantItemCard } from "./restaurants/restaurantItemCard/RestaurantItemCard";
 export { default as ReservationForm } from "./restaurants/reservationForm/ReservationForm";
+
+export { default as ReservationItem } from "./reservations/reservationItem/ReservationItem";

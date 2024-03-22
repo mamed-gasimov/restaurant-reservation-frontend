@@ -1,14 +1,22 @@
-import { FormEventHandler, SyntheticEvent, useEffect, useState } from "react";
+import {
+  FormEventHandler,
+  SyntheticEvent,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { toast } from "react-toastify";
 
 import { RestaurantItemCard } from "@components/index";
 import { sendGetRestaurantsRequest } from "@services/sendRequest";
 import { GetRestaurantsApiResponse, Restaurant } from "src/types/apiResponse";
 import restaurantsCss from "./restaurants.module.css";
+import { AuthContext } from "@context/authContext";
 
 const Restaurants = () => {
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
   const [searchInput, setSearchInput] = useState("");
+  const { restaurantOwner } = useContext(AuthContext);
 
   const getRestaurants = async (
     e?: SyntheticEvent<HTMLFormElement, SubmitEvent>
@@ -34,6 +42,14 @@ const Restaurants = () => {
 
   return (
     <>
+      {restaurantOwner?.restaurantName && (
+        <h2>
+          Good Day to You, Owner of{" "}
+          <i style={{ color: "rgb(212, 136, 14)" }}>
+            {restaurantOwner.restaurantName}
+          </i>
+        </h2>
+      )}
       <form
         className={restaurantsCss.searchContainer}
         onSubmit={getRestaurants as FormEventHandler<HTMLFormElement>}

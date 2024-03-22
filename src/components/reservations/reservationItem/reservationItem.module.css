@@ -1,0 +1,29 @@
+.reservation-item {
+  display: flex;
+  min-width: 300px;
+  flex-direction: column;
+  padding: var(--space-6);
+  margin: var(--space-4);
+  background-color: var(--color-gray-500);
+  border: 1px solid var(--color-primary-500);
+  border-radius: var(--border-radius-medium);
+}
+
+.reservation-item p {
+  margin: var(--space-2);
+}
+
+.reservation-item .btn-container {
+  display: flex;
+  gap: 10px;
+  margin-top: var(--space-2);
+}
+
+.reservation-item span {
+  color: var(--color-primary-400);
+}
+
+.reservation-item strong {
+  letter-spacing: 2px;
+  color: var(--color-primary-200);
+}

@@ -2,16 +2,27 @@ import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import { sendGetSingleRestaurant } from "@services/sendRequest";
-import { GetRestaurantApiResponse, Restaurant } from "src/types/apiResponse";
+import {
+  sendGetReservations,
+  sendGetSingleRestaurant,
+} from "@services/sendRequest";
+import {
+  GetReservationsApiResponse,
+  GetRestaurantApiResponse,
+  ReservationResponse,
+  Restaurant,
+} from "src/types/apiResponse";
 import restaurantCss from "./singleRestaurant.module.css";
 import { AuthContext } from "@context/authContext";
-import { ReservationForm } from "@components/index";
+import { ReservationForm, ReservationItem } from "@components/index";
 
 const SingleRestaurant = () => {
   const { id } = useParams();
   const [restaurant, setRestaurant] = useState<Restaurant>();
-  const { isAuth, restaurantOwner } = useContext(AuthContext);
+  const [listOfReservations, setListOfReservations] = useState<
+    ReservationResponse[]
+  >([]);
+  const { isAuth, restaurantOwner, authToken } = useContext(AuthContext);
 
   useEffect(() => {
     if (id) {
@@ -28,8 +39,25 @@ const SingleRestaurant = () => {
       };
 
       getRestaurantInfo(id);
+
+      if (isAuth && restaurantOwner?.restaurantId === id) {
+        const getReservations = async (id: string) => {
+          const response = (await sendGetReservations(
+            `/reservations/${id}`,
+            authToken
+          )) as GetReservationsApiResponse;
+
+          if (response?.status === "error" || !response) {
+            toast.error("Something went wrong!");
+          } else if (response?.status === "success") {
+            setListOfReservations(response.data.reservations);
+          }
+        };
+
+        getReservations(id);
+      }
     }
-  }, [id]);
+  }, [id, restaurantOwner?.restaurantId]);
 
   return (
     <div className={restaurantCss.container}>
@@ -43,7 +71,17 @@ const SingleRestaurant = () => {
         {isAuth && restaurantOwner?.restaurantId !== id && (
           <ReservationForm restaurantId={id} />
         )}
-        {isAuth && restaurantOwner?.restaurantId === id && <p>HELLO!</p>}
+        {isAuth &&
+          restaurantOwner?.restaurantId === id &&
+          listOfReservations?.length > 0 &&
+          listOfReservations.map((item) => (
+            <ReservationItem key={item?._id} reservation={item} />
+          ))}
+        {isAuth &&
+          restaurantOwner?.restaurantId === id &&
+          listOfReservations?.length === 0 && (
+            <p>There is no reservation for now!</p>
+          )}
       </section>
     </div>
   );

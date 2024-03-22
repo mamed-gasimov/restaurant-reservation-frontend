@@ -2,6 +2,7 @@ import { AxiosResponseError } from "src/types/errorTypes";
 import {
   AccessTokenApiResponse,
   ApiResponse,
+  GetReservationsApiResponse,
   Reservation,
   Restaurant,
   User,
@@ -155,6 +156,28 @@ export const sendGetCurrentUser = async (path: string, authToken: string) => {
       message: string;
       user: User;
     };
+    response = { data: res, status: "success" };
+  } catch (error) {
+    const err = error as AxiosResponseError;
+    if (err.response?.data) {
+      response = {
+        data: err.response.data,
+        status: "error",
+      } as ApiResponse;
+    }
+  }
+
+  return response;
+};
+
+export const sendGetReservations = async (path: string, authToken: string) => {
+  let response;
+  try {
+    const res = (
+      await axiosInstance.get(path, {
+        headers: { Authorization: `Bearer ${authToken}` },
+      })
+    ).data as GetReservationsApiResponse;
     response = { data: res, status: "success" };
   } catch (error) {
     const err = error as AxiosResponseError;
