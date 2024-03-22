@@ -15,3 +15,7 @@
 .search-container div {
   width: 40%;
 }
+
+.restaurantName {
+  color: rgb(212, 136, 14);
+}

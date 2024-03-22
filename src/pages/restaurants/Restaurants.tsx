@@ -45,7 +45,7 @@ const Restaurants = () => {
       {restaurantOwner?.restaurantName && (
         <h2>
           Good Day to You, Owner of{" "}
-          <i style={{ color: "rgb(212, 136, 14)" }}>
+          <i className={restaurantsCss.restaurantName}>
             {restaurantOwner.restaurantName}
           </i>
         </h2>

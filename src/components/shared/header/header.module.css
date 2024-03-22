@@ -20,21 +20,27 @@
 }
 
 .mobile-menu-btn {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  border: none;
-  cursor: pointer;
-  width: 2.25rem;
-  height: 2.25rem;
-  background-color: transparent;
-  padding: 0;
+  display: none;
 }
 
-.mobile-menu-btn span {
-  width: 2.25rem;
-  height: 0.2rem;
-  background-color: var(--color-gray-100);
+@media (max-width: 600px) {
+  .mobile-menu-btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    border: none;
+    cursor: pointer;
+    width: 2.25rem;
+    height: 2.25rem;
+    background-color: transparent;
+    padding: 0;
+  }
+
+  .mobile-menu-btn span {
+    width: 2.25rem;
+    height: 0.2rem;
+    background-color: var(--color-gray-100);
+  }
 }
 
 @media (min-width: 48rem) {

@@ -6,10 +6,10 @@ interface IProps {
 
 const Wrapper = ({ children }: IProps) => {
   return (
-    <main>
+    <>
       <Header />
-      {children}
-    </main>
+      <main>{children}</main>
+    </>
   );
 };
 

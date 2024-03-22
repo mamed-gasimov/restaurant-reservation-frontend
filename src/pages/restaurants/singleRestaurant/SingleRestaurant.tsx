@@ -67,7 +67,9 @@ const SingleRestaurant = () => {
       <p className={restaurantCss.description}>{restaurant?.description}</p>
       <section className={restaurantCss.reservationFormSection}>
         {!isAuth && (
-          <h2>Please Login to Your account to make a reservation.</h2>
+          <h2 className={restaurantCss.pleaseLogIn}>
+            Please Login to Your account to make a reservation.
+          </h2>
         )}
         {isAuth && restaurantOwner?.restaurantId !== id && (
           <ReservationForm restaurantId={id} />

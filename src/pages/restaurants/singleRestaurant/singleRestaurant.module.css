@@ -24,3 +24,15 @@
   margin-bottom: var(--space-6);
   flex-wrap: wrap;
 }
+
+@media only screen and (max-width: 600px) {
+  .container .restaurant-image {
+    height: 250px;
+    object-fit: cover;
+  }
+
+  .please-log-in {
+    font-size: 1.2rem;
+    line-height: 2rem;
+  }
+}
